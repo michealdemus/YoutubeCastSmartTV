@@ -5,7 +5,7 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '390',
         width: '640',
-        videoId: 'dQw4w9WgXcQ',
+        videoId: 'dQw4w9WgXcQ', // Default video
         playerVars: {
             'autoplay': 1 // Autoplay the video
         },
@@ -40,8 +40,8 @@ function enterFullscreen(element) {
 
 // Initialize Pusher
 // Replace APP_KEY and CLUSTER with your actual Pusher credentials
-const pusher = new Pusher('dd9c0093a77f8814a7bd', {
-    cluster: 'eu'
+const pusher = new Pusher('APP_KEY', {
+    cluster: 'CLUSTER'
 });
 
 // Subscribe to a channel
@@ -51,10 +51,10 @@ const channel = pusher.subscribe('my-channel');
 channel.bind('new-video', function(data) {
     // Update YouTube video based on the received ID
     player.loadVideoById(data.videoId);
-     // Autoplay the video
+    player.playVideo(); // Autoplay the video
 
+    
 
     // Update HTML element to display the current Pusher data
     document.getElementById('pusherData').innerHTML = `Current Video ID: ${data.videoId}`;
-    player.playVideo();
 });
