@@ -24,16 +24,11 @@ const pusher = new Pusher('APP_KEY', {
 // Subscribe to a channel
 const channel = pusher.subscribe('my-channel');
 
-// Listen for an event and update the h1 element
-channel.bind('my-event', function(data) {
-    document.getElementById('pusherData').textContent = JSON.stringify(data);
+// Bind to an event within the channel
+channel.bind('new-video', function(data) {
+    // Update YouTube video based on the received ID
+    player.loadVideoById(data.videoId);
 
-    // Check if the videoId is present in the data received from Pusher
-    if(data.hasOwnProperty('videoId') && data.videoId !== null && data.videoId.trim() !== '') {
-        // Play the YouTube video with the received video ID
-        player.loadVideoById(data.videoId);
-    } else {
-        console.log('No valid videoId received from Pusher');
-    }
+    // Update HTML element to display the current Pusher data
+    document.getElementById('pusherData').innerHTML = `Current Video ID: ${data.videoId}`;
 });
-
