@@ -5,7 +5,6 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '390',
         width: '640',
-        videoId: 'dQw4w9WgXcQ', // Default video
         playerVars: {
             'autoplay': 1 // Autoplay the video
         },
@@ -40,8 +39,8 @@ function enterFullscreen(element) {
 
 // Initialize Pusher
 // Replace APP_KEY and CLUSTER with your actual Pusher credentials
-const pusher = new Pusher('APP_KEY', {
-    cluster: 'CLUSTER'
+const pusher = new Pusher('dd9c0093a77f8814a7bd', {
+    cluster: 'eu'
 });
 
 // Subscribe to a channel
