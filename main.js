@@ -1,5 +1,5 @@
 // Zastąp YOUR_APP_ID rzeczywistym identyfikatorem aplikacji z Google Cast SDK
-const applicationID = '3111246E';
+const applicationID = 'B7FB11C3';
 
 // Inicjalizacja Google Cast SDK
 window['__onGCastApiAvailable'] = function(isAvailable) {
