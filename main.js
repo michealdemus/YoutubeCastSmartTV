@@ -1,6 +1,7 @@
-// Replace YOUR_APP_ID with the actual App ID you receive after registering your application.
+// Zastąp YOUR_APP_ID rzeczywistym identyfikatorem aplikacji z Google Cast SDK
 const applicationID = 'YOUR_APP_ID';
 
+// Inicjalizacja Google Cast SDK
 window['__onGCastApiAvailable'] = function(isAvailable) {
     if (isAvailable) {
         initializeCastApi();
@@ -37,3 +38,17 @@ function receiverListener(status) {
         });
     }
 }
+
+// Inicjalizacja Pusher
+// Zastąp APP_KEY i CLUSTER rzeczywistymi danymi z Twojego konta Pusher
+const pusher = new Pusher('APP_KEY', {
+    cluster: 'CLUSTER'
+});
+
+// Subskrypcja kanału
+const channel = pusher.subscribe('my-channel');
+
+// Nasłuchiwanie na zdarzenie i aktualizacja elementu h1
+channel.bind('my-event', function(data) {
+    document.getElementById('pusherData').textContent = JSON.stringify(data);
+});
