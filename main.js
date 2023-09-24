@@ -35,8 +35,8 @@ function onPlayerReady(event) {
 
 // Initialize Pusher
 // Replace APP_KEY and CLUSTER with your actual Pusher credentials
-const pusher = new Pusher('APP_KEY', {
-    cluster: 'CLUSTER'
+const pusher = new Pusher('dd9c0093a77f8814a7bd', {
+    cluster: 'eu'
 });
 
 // Subscribe to a channel
@@ -46,7 +46,4 @@ const channel = pusher.subscribe('my-channel');
 channel.bind('new-video', function(data) {
     // Update YouTube video based on the received ID
     player.loadVideoById(data.videoId);
-
-    // Update HTML element to display the current Pusher data
-    document.getElementById('pusherData').innerHTML = `Current Video ID: ${data.videoId}`;
 });
