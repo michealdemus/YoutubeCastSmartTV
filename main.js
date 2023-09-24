@@ -1,54 +1,35 @@
-// Zastąp YOUR_APP_ID rzeczywistym identyfikatorem aplikacji z Google Cast SDK
-const applicationID = 'YOUR_APP_ID';
-
-// Inicjalizacja Google Cast SDK
-window['__onGCastApiAvailable'] = function(isAvailable) {
-    if (isAvailable) {
-        initializeCastApi();
-    }
-};
-
-function initializeCastApi() {
-    const sessionRequest = new chrome.cast.SessionRequest(applicationID);
-    const apiConfig = new chrome.cast.ApiConfig(
-        sessionRequest,
-        sessionListener,
-        receiverListener
-    );
-
-    chrome.cast.initialize(apiConfig, onInitSuccess, onError);
+// Initialize YouTube API
+var player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '390',
+        width: '640',
+        videoId: 'dQw4w9WgXcQ', // Default video
+        events: {
+            'onReady': onPlayerReady,
+        }
+    });
 }
 
-function onInitSuccess() {
-    console.log('Initialization succeeded');
+function onPlayerReady(event) {
+    event.target.playVideo();
 }
 
-function onError(message) {
-    console.log('Initialization failed: ' + message);
-}
-
-function sessionListener(session) {
-    console.log('Session started: ' + session);
-}
-
-function receiverListener(status) {
-    if (status === chrome.cast.ReceiverAvailability.AVAILABLE) {
-        document.getElementById('castButton').addEventListener('click', function() {
-            chrome.cast.requestSession(sessionListener, onError);
-        });
-    }
-}
-
-// Inicjalizacja Pusher
-// Zastąp APP_KEY i CLUSTER rzeczywistymi danymi z Twojego konta Pusher
-const pusher = new Pusher('dd9c0093a77f8814a7bd', {
-    cluster: 'eu'
+// Initialize Pusher
+// Replace APP_KEY and CLUSTER with your actual Pusher credentials
+const pusher = new Pusher('APP_KEY', {
+    cluster: 'CLUSTER'
 });
 
-// Subskrypcja kanału
+// Subscribe to a channel
 const channel = pusher.subscribe('my-channel');
 
-// Nasłuchiwanie na zdarzenie i aktualizacja elementu h1
+// Listen for an event and update the h1 element
 channel.bind('my-event', function(data) {
     document.getElementById('pusherData').textContent = JSON.stringify(data);
+    
+    // Play YouTube video with the received ID
+    if(data.videoId){
+        player.loadVideoById(data.videoId);
+    }
 });
