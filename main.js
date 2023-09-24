@@ -25,18 +25,36 @@ function onPlayerStateChange(event) {
         player.nextVideo(); // Play next recommended video
     }
 }
-
-function enterFullscreen(element) {
-    if(element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if(element.mozRequestFullScreen) { // Firefox
-        element.mozRequestFullScreen();
-    } else if(element.webkitRequestFullscreen) { // Chrome, Safari and Opera
-        element.webkitRequestFullscreen();
-    } else if(element.msRequestFullscreen) { // IE/Edge
-        element.msRequestFullscreen();
+document.addEventListener('keydown', function(event) {
+    let keyPressed = "Unknown Key";
+    switch(event.keyCode) {
+        case 32: // Spacebar for Play/Pause toggle
+            keyPressed = "Spacebar";
+            if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+            break;
+        case 39: // Right Arrow for Fast Forward
+            keyPressed = "Right Arrow";
+            var currentTime = player.getCurrentTime();
+            player.seekTo(currentTime + 10);
+            break;
+        case 37: // Left Arrow for Rewind
+            keyPressed = "Left Arrow";
+            var currentTime = player.getCurrentTime();
+            player.seekTo(currentTime - 10);
+            break;
+        default:
+            keyPressed = "Other Key";
+            // Handle other keys here
+            break;
     }
-}
+    // Update HTML element to display the pressed key
+    document.getElementById('pusherData').innerHTML = `Last Key Pressed: ${keyPressed}`;
+});
+
 
 // Initialize Pusher
 // Replace APP_KEY and CLUSTER with your actual Pusher credentials
@@ -51,10 +69,11 @@ const channel = pusher.subscribe('my-channel');
 channel.bind('new-video', function(data) {
     // Update YouTube video based on the received ID
     player.loadVideoById(data.videoId);
-    player.playVideo(); // Autoplay the video
+    // Autoplay the video
 
     
 
     // Update HTML element to display the current Pusher data
     document.getElementById('pusherData').innerHTML = `Current Video ID: ${data.videoId}`;
+     player.playVideo();
 });
