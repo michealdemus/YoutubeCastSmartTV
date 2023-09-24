@@ -27,9 +27,13 @@ const channel = pusher.subscribe('my-channel');
 // Listen for an event and update the h1 element
 channel.bind('my-event', function(data) {
     document.getElementById('pusherData').textContent = JSON.stringify(data);
-    
-    // Play YouTube video with the received ID
-    if(data.videoId){
+
+    // Check if the videoId is present in the data received from Pusher
+    if(data.hasOwnProperty('videoId') && data.videoId !== null && data.videoId.trim() !== '') {
+        // Play the YouTube video with the received video ID
         player.loadVideoById(data.videoId);
+    } else {
+        console.log('No valid videoId received from Pusher');
     }
 });
+
