@@ -47,8 +47,7 @@ document.addEventListener('keydown', function(event) {
             player.seekTo(currentTime - 10);
             break;
         default:
-            keyPressed = "Other Key";
-            // Handle other keys here
+            keyPressed = `Other Key (${event.key})`; // Display the actual key name
             break;
     }
     // Update HTML element to display the pressed key
