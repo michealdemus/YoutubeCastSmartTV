@@ -51,11 +51,10 @@ const channel = pusher.subscribe('my-channel');
 channel.bind('new-video', function(data) {
     // Update YouTube video based on the received ID
     player.loadVideoById(data.videoId);
-    player.playVideo(); // Autoplay the video
+     // Autoplay the video
 
-    // Attempt to enter fullscreen mode
-    enterFullscreen(document.getElementById('player'));
 
     // Update HTML element to display the current Pusher data
     document.getElementById('pusherData').innerHTML = `Current Video ID: ${data.videoId}`;
+    player.playVideo();
 });
