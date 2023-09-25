@@ -14,6 +14,13 @@ function onYouTubeIframeAPIReady() {
         }
     });
 }
+let i = 0;
+function countInfinity() {
+  console.log(i);
+  i++;
+  setTimeout(countInfinity, 1000);  // Czekaj 1 sekundę przed kolejnym wywołaniem
+}
+countInfinity();
 
 function onPlayerReady(event) {
     // Attempt to set the player to fullscreen
