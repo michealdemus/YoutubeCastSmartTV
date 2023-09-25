@@ -1,6 +1,22 @@
+var player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '390',
+        width: '640',
+        videoId: 'dQw4w9WgXcQ', // Default video
+        playerVars: {
+            'autoplay': 1 // Autoplay the video
+        },
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+}
 
-// Existing JavaScript code
-// ...
+function onPlayerReady(event) {
+    event.target.playVideo();
+}
 
 // Initialize Pusher with existing credentials
 const pusher = new Pusher('dd9c0093a77f8814a7bd', {
@@ -62,7 +78,7 @@ document.addEventListener('keydown', function(event) {
             player.setVolume(Math.max(currentVolume - 10, 0));
             break;
         default:
-            keyPressed = `Other Key (${event.key})`; // Display the actual key name
+            keyPressed = `Other Key (${event.Code})`; // Display the actual key name
             break;
     }
     // Update HTML element to display the pressed key
