@@ -1,3 +1,19 @@
+
+
+const context = cast.framework.CastReceiverContext.getInstance();
+        const playerManager = context.getPlayerManager();
+
+        // Handle incoming messages from the sender app
+        playerManager.setMessageInterceptor(
+            cast.framework.messages.MessageType.LOAD,
+            loadRequestData => {
+                console.log("Received message:", loadRequestData);
+                return loadRequestData;
+            }
+        );
+
+        context.start();
+
 var player;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
