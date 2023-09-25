@@ -1,6 +1,7 @@
 .container {
     text-align: center;
-    margin-top: 50px;
+    width:100%;
+    heigth:100%
     color:#fff;
 }
 
