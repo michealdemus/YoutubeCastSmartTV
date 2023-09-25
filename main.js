@@ -46,22 +46,22 @@ document.addEventListener('keydown', function(event) {
                 player.playVideo();
             }
             break;
-        case "Down Arrow": // Down Arrow for stopping the video
+        case "ArrowDown": // Down Arrow for stopping the video
             keyPressed = "Volume Down";
             var currentVolume = player.getVolume();
             player.setVolume(Math.max(currentVolume + 10, 0));
             break;
-        case "Left Arrow": // Left Arrow for Rewind
+        case "ArrowLeft": // Left Arrow for Rewind
             keyPressed = "Left Arrow";
             var currentTime = player.getCurrentTime();
             player.seekTo(currentTime - 10);
             break;
-        case "Up Arrow": // Up Arrow for playing the video
+        case "ArrowUp": // Up Arrow for playing the video
             keyPressed = "Volume Up";
             var currentVolume = player.getVolume();
             player.setVolume(Math.min(currentVolume - 10, 100));
             break;
-        case "Right Arrow": // Right Arrow for Fast Forward
+        case "ArrowRight": // Right Arrow for Fast Forward
             keyPressed = "Right Arrow";
             var currentTime = player.getCurrentTime();
             player.seekTo(currentTime + 10);
