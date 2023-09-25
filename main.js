@@ -1,22 +1,33 @@
 var player;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-    height: '360',
-    width: '640',
-    videoId: 'M7lc1UVf-VE',
-    events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
-    }
-  });
+        height: '100%',  // Set to 100% of parent container
+        width: '100%',   // Set to 100% of parent container
+        videoId: 'M7lc1UVf-VE',
+        playerVars: {
+            'autoplay': 1,
+            'fs': 1  // Enable the fullscreen button
+        },
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
 }
 
 function onPlayerReady(event) {
-  var embedCode = event.target.getVideoEmbedCode();
-  event.target.playVideo();
-  if (document.getElementById('embed-code')) {
-    document.getElementById('embed-code').innerHTML = embedCode;
-  }
+    // Attempt to set the player to fullscreen
+    var iframe = document.getElementById("player");
+    if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+    } else if (iframe.mozRequestFullScreen) {  // Firefox
+        iframe.mozRequestFullScreen();
+    } else if (iframe.webkitRequestFullscreen) {  // Chrome, Safari and Opera
+        iframe.webkitRequestFullscreen();
+    } else if (iframe.msRequestFullscreen) {  // IE/Edge
+        iframe.msRequestFullscreen();
+    }
+    event.target.playVideo();
 }
 
 // Initialize Pusher with existing credentials
