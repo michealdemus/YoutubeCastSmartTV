@@ -12,7 +12,11 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
-    event.target.playVideo();
+  var embedCode = event.target.getVideoEmbedCode();
+  event.target.playVideo();
+  if (document.getElementById('embed-code')) {
+    document.getElementById('embed-code').innerHTML = embedCode;
+  }
 }
 
 // Initialize Pusher with existing credentials
