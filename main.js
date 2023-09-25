@@ -47,8 +47,9 @@ document.addEventListener('keydown', function(event) {
             }
             break;
         case 40: // Down Arrow for stopping the video
-            keyPressed = "Down Arrow";
-            player.stopVideo();
+            keyPressed = "Volume Down";
+            var currentVolume = player.getVolume();
+            player.setVolume(Math.max(currentVolume - 10, 0));
             break;
         case 39: // Left Arrow for Rewind
             keyPressed = "Left Arrow";
@@ -56,24 +57,16 @@ document.addEventListener('keydown', function(event) {
             player.seekTo(currentTime - 10);
             break;
         case 38: // Up Arrow for playing the video
-            keyPressed = "Up Arrow";
-            player.playVideo();
+            keyPressed = "Volume Up";
+            var currentVolume = player.getVolume();
+            player.setVolume(Math.min(currentVolume + 10, 100));
             break;
         case 37: // Right Arrow for Fast Forward
             keyPressed = "Right Arrow";
             var currentTime = player.getCurrentTime();
             player.seekTo(currentTime + 10);
             break;
-        case 41: // Custom code for Volume Up
-            keyPressed = "Volume Up";
-            var currentVolume = player.getVolume();
-            player.setVolume(Math.min(currentVolume + 10, 100));
-            break;
-        case 42: // Custom code for Volume Down
-            keyPressed = "Volume Down";
-            var currentVolume = player.getVolume();
-            player.setVolume(Math.max(currentVolume - 10, 0));
-            break;
+      
         default:
             keyPressed = `Other Key (${event.key})`; // Display the actual key name
             break;
