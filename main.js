@@ -37,8 +37,8 @@ channel.bind('new-video', function(data) {
 // Functionality for Chromecast remote control
 document.addEventListener('keydown', function(event) {
     let keyPressed = "Unknown Key";
-    switch(event.keyCode) {
-        case 36: // Enter for Play/Pause toggle
+    switch(event.key) {
+        case Enter: // Enter for Play/Pause toggle
             keyPressed = "Enter";
             if (player.getPlayerState() === YT.PlayerState.PLAYING) {
                 player.pauseVideo();
@@ -46,22 +46,22 @@ document.addEventListener('keydown', function(event) {
                 player.playVideo();
             }
             break;
-        case 40: // Down Arrow for stopping the video
+        case Down Arrow: // Down Arrow for stopping the video
             keyPressed = "Volume Down";
             var currentVolume = player.getVolume();
-            player.setVolume(Math.max(currentVolume - 10, 0));
+            player.setVolume(Math.max(currentVolume + 10, 0));
             break;
-        case 39: // Left Arrow for Rewind
+        case Left Arrow: // Left Arrow for Rewind
             keyPressed = "Left Arrow";
             var currentTime = player.getCurrentTime();
             player.seekTo(currentTime - 10);
             break;
-        case 38: // Up Arrow for playing the video
+        case Up Arrow: // Up Arrow for playing the video
             keyPressed = "Volume Up";
             var currentVolume = player.getVolume();
-            player.setVolume(Math.min(currentVolume + 10, 100));
+            player.setVolume(Math.min(currentVolume - 10, 100));
             break;
-        case 37: // Right Arrow for Fast Forward
+        case Right Arrow: // Right Arrow for Fast Forward
             keyPressed = "Right Arrow";
             var currentTime = player.getCurrentTime();
             player.seekTo(currentTime + 10);
